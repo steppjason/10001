@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: DefaultCompany
   productName: LD48
   defaultCursor: {fileID: 2800000, guid: b2ec51b5a5c88b24aa35d294b90d29b1, type: 3}
-  cursorHotspot: {x: 0, y: 0}
+  cursorHotspot: {x: 16, y: 16}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1

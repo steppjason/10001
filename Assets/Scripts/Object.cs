@@ -13,20 +13,9 @@ public class Object : MonoBehaviour
     [SerializeField] TextMeshProUGUI ObjectName;
     [SerializeField] TextMeshProUGUI ObjectDescription;
 
-    private const float OFFSET = 2;
+    private const float OFFSET = 3f;
     private const float OFFSCREEN = 1200;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-    
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnMouseOver(){
         DisplayObjectInfo();
@@ -37,12 +26,17 @@ public class Object : MonoBehaviour
     }
 
     private void DisplayObjectInfo(){
-        uiPanel.GetComponent<RectTransform>().position = new Vector3(0,0 - OFFSET,0);
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+        uiPanel.transform.position = screenPos;
+        uiPanel.transform.position = new Vector3(uiPanel.transform.position.x, uiPanel.transform.position.y - 64, 0);
+
+
         ObjectName.SetText("[ " + objName + " ]");
         ObjectDescription.SetText(objDescription);
     }
 
     private void ResetInfo(){
-        uiPanel.GetComponent<RectTransform>().position = new Vector3(OFFSCREEN,0,0);
+        uiPanel.GetComponent<RectTransform>().position = new Vector3(0,OFFSCREEN,0);
     }
 }

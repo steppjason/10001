@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: a573c86c0b045394480ccaedfbfb022d
+guid: 6c1849d7b4df29f439f934347628a75b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5229067903017828810
-    second: ui-box-2_0
+      213: 3015563918778293235
+    second: Thrust-Back_0
   - first:
-      213: -5098032625696197409
-    second: ui-box-2_1
+      213: -3774333668384300332
+    second: Thrust-Back_1
   - first:
-      213: 8741325233834865024
-    second: ui-box-2_2
+      213: -7433614070263687859
+    second: Thrust-Back_2
   - first:
-      213: -4529211596729950259
-    second: ui-box-2_3
+      213: 4923292502448121450
+    second: Thrust-Back_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -58,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -77,7 +77,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -89,7 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -103,55 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui-box-2_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 18
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 63eb93e627e9e67b0800000000000000
-      internalID: -5229067903017828810
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui-box-2_1
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 18
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fd4b60466562049b0800000000000000
-      internalID: -5098032625696197409
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui-box-2_2
+      name: Thrust-Back_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9
-        height: 9
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +117,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 081b2e49cfc6f4970800000000000000
-      internalID: 8741325233834865024
+      spriteID: 3fbd340386f69d920800000000000000
+      internalID: 3015563918778293235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui-box-2_3
+      name: Thrust-Back_1
       rect:
         serializedVersion: 2
-        x: 18
+        x: 64
         y: 0
-        width: 9
-        height: 9
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,8 +138,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcfd450bc020521c0800000000000000
-      internalID: -4529211596729950259
+      spriteID: 4d22820a68fde9bc0800000000000000
+      internalID: -3774333668384300332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Thrust-Back_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d455698536f76d890800000000000000
+      internalID: -7433614070263687859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Thrust-Back_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a66a3cd327c035440800000000000000
+      internalID: 4923292502448121450
       vertices: []
       indices: 
       edges: []
