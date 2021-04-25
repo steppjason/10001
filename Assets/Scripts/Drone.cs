@@ -5,12 +5,18 @@ using UnityEngine;
 public class Drone : MonoBehaviour
 {
 
-    [SerializeField] float speed = 0.1f;
-    [SerializeField] float rotSpeed = 3f;
-    [SerializeField] float aggroRange = 50f;
-    [SerializeField] float acceleration = 1f;
+    [SerializeField] float speed = 0.05f;
+    [SerializeField] float rotSpeed = 5f;
+    [SerializeField] float aggroRange = 10f;
+    [SerializeField]private float maxSpeed = 12f;
+    [SerializeField]private int damage = 1;
 
     [SerializeField] Animator animator;
+
+    [SerializeField] AudioSource deathSound;
+    [SerializeField] AudioSource attackSound;
+    [SerializeField] AudioSource randomSound1;
+    [SerializeField] AudioSource randomSound2;
 
 
     private const float DRONE_ROTATION = 270f;
@@ -20,14 +26,8 @@ public class Drone : MonoBehaviour
     private GameObject player;
     private Vector3 target;
 
-    private float maxSpeed = 12f;
-
     private float life = 1f;
-
-    
-
-    Coroutine thrustCoroutine;
-    Coroutine death;
+    private bool isDead = false;
 
     
     // Start is called before the first frame update
@@ -43,15 +43,14 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-         Move();
+        Move();
     }
 
     public void Move(){
 
-        if(player.activeInHierarchy){
+        if(player.activeInHierarchy && !isDead){
 
-            thrustCoroutine = StartCoroutine(ChangeSpeed());
+            velocity += Time.deltaTime * speed;
 
             velocity = Mathf.Clamp(velocity,0,maxSpeed);
 
@@ -59,10 +58,9 @@ public class Drone : MonoBehaviour
             
             if(distance < aggroRange){
 
-                //Get the player's current position
+                
                 target = player.transform.position;
 
-                //Use Slerp to rotate towards the player's position
                 transform.rotation = Quaternion.Slerp(
                         transform.rotation, 
                         Quaternion.Euler(new Vector3(0, 0, 
@@ -74,18 +72,22 @@ public class Drone : MonoBehaviour
             }
         } else {
             velocity = 0;
-            StopCoroutine(thrustCoroutine);
-        }
-
-
-        if(Input.GetButtonDown("Fire2")){
-            Death();
         }
 
     }
 
+    public void Damage(int damage){
+        life -= damage;
+        
+        if(life <= 0)
+            Death();
+    }
+
     private void Death(){
+        isDead = true;
         animator.SetInteger("Dead", 1);
+        if(!deathSound.isPlaying)
+            deathSound.Play();
     }
 
     private void Reset(){
@@ -94,11 +96,16 @@ public class Drone : MonoBehaviour
     }
 
 
-    IEnumerator ChangeSpeed(){
-        while(true){
-            velocity += speed;
-            yield return new WaitForSeconds(acceleration);
+    private void OnCollisionEnter2D(Collision2D other) {
+    
+        if(other.gameObject.GetComponent<Player>()){
+            if(!attackSound.isPlaying)
+                attackSound.Play();
+            other.gameObject.GetComponent<Player>().Damage(damage);
         }
     }
+
+
+  
 
 }

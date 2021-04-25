@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Thrusters : MonoBehaviour
 {
+    
     [SerializeField] Animator animator;
+
     private float direction;
     
     // Start is called before the first frame update
@@ -26,6 +28,5 @@ public class Thrusters : MonoBehaviour
         else
             animator.SetInteger("Reverse", 0);
 
-        Debug.Log(Input.GetButtonDown("SpeedDown"));
     }
 }

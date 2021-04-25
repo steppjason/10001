@@ -45,8 +45,8 @@ public class PlayerBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         gameObject.SetActive(false);
 
-        //if(other.gameObject.GetComponent<Enemy>()){
-        //    other.gameObject.GetComponent<Enemy>().Damage(damage);
-        //}
+        if(other.gameObject.GetComponent<Drone>()){
+            other.gameObject.GetComponent<Drone>().Damage(damage);
+        }
     }
 }
