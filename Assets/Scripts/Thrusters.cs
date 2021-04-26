@@ -6,6 +6,7 @@ public class Thrusters : MonoBehaviour
 {
     
     [SerializeField] Animator animator;
+    [SerializeField] Player player;
 
     private float direction;
     
@@ -19,14 +20,23 @@ public class Thrusters : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = Input.GetAxisRaw("Horizontal");
-        animator.SetInteger("Direction", (int)direction);
         
-        if(Input.GetButton("SpeedDown")){
-            animator.SetInteger("Reverse", 1);
-        }
-        else
+        if(!player.PlayerDead()){
+
+            direction = Input.GetAxisRaw("Horizontal");
+            animator.SetInteger("Direction", (int)direction);
+            
+            if(Input.GetButton("SpeedDown")){
+                animator.SetInteger("Reverse", 1);
+            }
+            else
+                animator.SetInteger("Reverse", 0);
+
+        } else {
+            animator.SetInteger("Direction", 0);
             animator.SetInteger("Reverse", 0);
+        }
+        
 
     }
 }

@@ -76,8 +76,18 @@ public class Player : MonoBehaviour
     private float dangerTime = 0;
 
 
+    [Header("Coordinates")]
+    [SerializeField] TextMeshProUGUI coordValue;
+    [SerializeField] float initialOffsetX = -3145f;
+    [SerializeField] float initialOffsetY = 161f;
+    [SerializeField] float multiplier = 2.7f;
+
+    [SerializeField] Animator playerAnimation;
+
+
     private float velocity = 0.0f;
     private float direction;
+    public bool dead = false;
 
     Coroutine thrustCoroutine;
     Coroutine fireCoroutine;
@@ -92,52 +102,66 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        direction = Input.GetAxisRaw("Horizontal");
-
-        if(Input.GetButtonDown("SpeedUp")){
-            thrustCoroutine = StartCoroutine(ChangeSpeed(1));
-        }
-
-        if(Input.GetButtonUp("SpeedUp")){
-            StopCoroutine(thrustCoroutine);
-        }
-
-        if(Input.GetButtonDown("SpeedDown")){
-            thrustCoroutine = StartCoroutine(ChangeSpeed(0));
-        }
-
-        if(Input.GetButtonUp("SpeedDown")){
-            StopCoroutine(thrustCoroutine);
-        }
+        
 
         
+
+        
+        
+
+        
+
+        
+
+        if(!dead){
+
+            Aim();
+
+            if(Input.GetButtonDown("SpeedUp")){
+                thrustCoroutine = StartCoroutine(ChangeSpeed(1));
+            }
+
+            if(Input.GetButtonUp("SpeedUp")){
+                StopCoroutine(thrustCoroutine);
+            }
+
+            if(Input.GetButtonDown("SpeedDown")){
+                thrustCoroutine = StartCoroutine(ChangeSpeed(0));
+            }
+
+            if(Input.GetButtonUp("SpeedDown")){
+                StopCoroutine(thrustCoroutine);
+            }
+
+            if(Input.GetButtonDown("Fire1")){
+                fireCoroutine = StartCoroutine(Firing());
+            }
+
+            if(Input.GetButton("Fire1") && overheated){
+                
+                if(errorTime >= MAX_ERROR_DELAY){
+                    errorMessage.Play();
+                    errorTime = 0;
+                }
+                
+            }
+
+            direction = Input.GetAxisRaw("Horizontal");
+
+        }
+
         velocity = Mathf.Clamp(velocity,0,maxSpeed);
         weaponTemp = Mathf.Clamp(weaponTemp,0,1);
+        hullIntegrity = Mathf.Clamp(hullIntegrity,0,100);
 
         this.transform.Rotate(Vector3.forward * -1 * direction * rotSpeed * Time.deltaTime);
         this.transform.position += this.transform.rotation * Vector3.up * velocity * Time.deltaTime;
 
-        Aim();
-
-        
-
-
-        if(Input.GetButtonDown("Fire1")){
-            fireCoroutine = StartCoroutine(Firing());
-        }
 
         if(Input.GetButtonUp("Fire1")){
             StopCoroutine(fireCoroutine);
         }
-
-        if(Input.GetButton("Fire1") && overheated){
-            
-            if(errorTime >= MAX_ERROR_DELAY){
-                errorMessage.Play();
-                errorTime = 0;
-            }
-            
-        }
+        
 
         if(!Input.GetButton("Fire1") || overheated)
             CoolDownWeapon();
@@ -146,6 +170,7 @@ public class Player : MonoBehaviour
         UpdateThrusterUI();
         UpdateHeatTemp();
         ShowThrustSprite();
+        UpdateCoords();
         
        
 
@@ -155,7 +180,7 @@ public class Player : MonoBehaviour
             errorText.color = Color.Lerp(errorText.color, new Color(1,0,0.2190539f,0), Time.deltaTime * 2f);
 
 
-        if(hullIntegrity < 35){
+        if(hullIntegrity < 35 && !dead){
             dangerText.color = Color.Lerp(new Color(1,0.4445944f,0,1), new Color(1,0.4445944f,0,0.3686275f), Mathf.PingPong(Time.time * 2.5f, 1.0f));
 
             if(dangerTime >= MAX_DANGER_DELAY){
@@ -168,6 +193,10 @@ public class Player : MonoBehaviour
         errorTime += Time.deltaTime;
         dangerTime += Time.deltaTime;
         
+    }
+
+    private void UpdateCoords(){
+        coordValue.text = "[ " + ((this.transform.position.x + initialOffsetX) * multiplier).ToString("#.##")  + " , " + ((this.transform.position.y + initialOffsetY) * multiplier).ToString("#.##") + " ]";
     }
 
     private void ShowThrustSprite(){
@@ -208,6 +237,14 @@ public class Player : MonoBehaviour
        
         
         
+    }
+
+    public float GetPlayerSpeed(){
+        return velocity;
+    }
+
+    public bool PlayerDead(){
+        return dead;
     }
 
     private void UpdateThrusterUI(){
@@ -292,7 +329,11 @@ public class Player : MonoBehaviour
     }
 
     public void Death(){
-        //todo
+        dead = true;
+        velocity = 0;
+        playerAnimation.SetBool("Dead",true);
+        gun.SetActive(false);
+        
     }
 
     private void InstantiateBullets(){

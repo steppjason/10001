@@ -23,6 +23,8 @@ public class Drone : MonoBehaviour
     
     private float velocity = 0f;
 
+    [SerializeField] Player pl;
+
     private GameObject player;
     private Vector3 target;
 
@@ -48,7 +50,7 @@ public class Drone : MonoBehaviour
 
     public void Move(){
 
-        if(player.activeInHierarchy && !isDead){
+        if(player.activeInHierarchy && !isDead && !pl.PlayerDead()){
 
             velocity += Time.deltaTime * speed;
 
@@ -95,9 +97,7 @@ public class Drone : MonoBehaviour
         life = 1f;
     }
 
-
-    private void OnCollisionEnter2D(Collision2D other) {
-    
+    private void OnCollisionStay2D(Collision2D other) {
         if(other.gameObject.GetComponent<Player>()){
             if(!attackSound.isPlaying)
                 attackSound.Play();
