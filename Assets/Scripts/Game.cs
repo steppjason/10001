@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     [SerializeField] RawImage blackBG;
     [SerializeField] Image menuBG;
     [SerializeField] TextMeshProUGUI title;
+    [SerializeField] TextMeshProUGUI text;
 
     [SerializeField] GameObject game;
 
@@ -53,6 +54,7 @@ public class Game : MonoBehaviour
                 blackBG.color = Color.Lerp(blackBG.color, new Color(0,0,0,0), Time.deltaTime * fadetime);
                 menuBG.color = Color.Lerp(menuBG.color, new Color(0,0,0,0), Time.deltaTime * fadetime);
                 title.color = Color.Lerp(title.color, new Color(0,0,0,0), Time.deltaTime * fadetime);
+                text.color = Color.Lerp(text.color, new Color(0,0,0,0), Time.deltaTime * fadetime);
             }
     }
 }
