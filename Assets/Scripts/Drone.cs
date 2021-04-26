@@ -31,6 +31,9 @@ public class Drone : MonoBehaviour
     private float life = 1f;
     private bool isDead = false;
 
+    private float attackrate = 0;
+    private float MAX_ATTACK = 5f;
+
     
     // Start is called before the first frame update
     void Start()
@@ -46,6 +49,8 @@ public class Drone : MonoBehaviour
     void Update()
     {
         Move();
+
+        attackrate += Time.deltaTime;
     }
 
     public void Move(){
@@ -99,9 +104,18 @@ public class Drone : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other) {
         if(other.gameObject.GetComponent<Player>()){
-            if(!attackSound.isPlaying)
+
+
+            if(attackrate >= MAX_ATTACK){
+                if(!attackSound.isPlaying)
                 attackSound.Play();
-            other.gameObject.GetComponent<Player>().Damage(damage);
+                other.gameObject.GetComponent<Player>().Damage(damage);
+                attackrate = 0;
+            }
+
+
+            
+            
         }
     }
 
